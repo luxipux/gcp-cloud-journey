@@ -19,3 +19,6 @@ Learning how to:
 - Compute Engine
 - gcloud CLI
 - Linux (Ubuntu)
+
+## Demo
+![First deployment](assets/day2.png)
