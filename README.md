@@ -9,8 +9,10 @@ Building real systems: compute, storage, IAM, and data pipelines.
 
 - [x] Day 1 – GCP setup (project, CLI)
 - [x] Day 2 – VM + nginx (first deployment)
-- [x] Day 3 – Cloud Storage (GCS, public hosting)
-- [x] Day 4 – VM → GCS pipeline
+- [x] Day 3 – Cloud Storage (GCS)
+- [x] Day 4 – API integration (TibiaData)
+- [x] Day 5 – Automated pipeline (cron + ingestion)
+- [x] Day 6 – Data aggregation (processing + stats)
 
 ---
 
@@ -112,9 +114,23 @@ day2.png
 
 ---
 
+
+## 🚀 What this project demonstrates
+
+- Building cloud-based data pipelines
+- Automating workflows with cron
+- Working with external APIs
+- Processing and aggregating data
+- Using GCP services (Compute Engine, Cloud Storage)
+- Implementing fault-tolerant scripts
+
+
+---
+
 ## 🚀 Next Steps
 
-- Automate pipeline (cron / scheduler)
 - Infrastructure as Code (Terraform)
 - Containers (Cloud Run / Kubernetes)
 - Start real data project
+
+
