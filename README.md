@@ -31,15 +31,17 @@ https://storage.googleapis.com/logro-cloud-bucket-12345/data.txt
 ## 🧩 Architecture
 
 ```
+API (TibiaData)
+↓
 VM (Compute Engine)
 ↓
-generates data
+Cron (pipeline.sh)
 ↓
-uploads to
+GCS (raw data)
 ↓
-GCS (Cloud Storage)
+Cron (aggregate.sh)
 ↓
-accessible via public URL
+GCS (aggregated results)
 ```
 
 ---
