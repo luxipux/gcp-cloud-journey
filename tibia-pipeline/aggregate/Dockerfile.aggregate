@@ -1,0 +1,10 @@
+FROM google/cloud-sdk:slim
+
+RUN apt-get update && apt-get install -y jq
+
+WORKDIR /app
+
+COPY aggregate.sh .
+RUN chmod +x aggregate.sh
+
+CMD ["./aggregate.sh"]
