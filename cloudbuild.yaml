@@ -1,0 +1,26 @@
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [
+      'build',
+      '-t',
+      'europe-west2-docker.pkg.dev/project-cc4fc47d-aed1-4f06-8d3/tibia-repo/tibia-pipeline:latest',
+      './tibia-pipeline/pipeline'
+    ]
+
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [
+      'push',
+      'europe-west2-docker.pkg.dev/project-cc4fc47d-aed1-4f06-8d3/tibia-repo/tibia-pipeline:latest'
+    ]
+
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args:
+      [
+        'run', 'jobs', 'update', 'tibia-job',
+        '--image=europe-west2-docker.pkg.dev/project-cc4fc47d-aed1-4f06-8d3/tibia-repo/tibia-pipeline:latest',
+        '--region=europe-west2'
+      ]
+
+images:
+  - 'europe-west2-docker.pkg.dev/project-cc4fc47d-aed1-4f06-8d3/tibia-repo/tibia-pipeline:latest'
