@@ -1,138 +1,74 @@
-# GCP Cloud Journey ☁️
+# GCP Cloud Journey 🚀
 
-Hands-on cloud engineering journey on Google Cloud Platform.  
-Building real systems: compute, storage, IAM, and data pipelines.
+Hands-on Google Cloud project focused on building a simple end-to-end data pipeline using serverless tools.
 
----
+## 🧠 Project Overview
 
-## 🚧 Progress
+This project collects real-time data from an external API, processes it in a containerized pipeline, and stores it for further analysis.
 
-- [x] Day 1 – GCP setup (project, CLI)
-- [x] Day 2 – VM + nginx (first deployment)
-- [x] Day 3 – Cloud Storage (GCS)
-- [x] Day 4 – API integration (TibiaData)
-- [x] Day 5 – Automated pipeline (cron + ingestion)
-- [x] Day 6 – Data aggregation (processing + stats)
+Pipeline flow:
 
----
-
-## 🌐 Demo
-
-### VM → GCS pipeline (Day 4)
-
-Data generated on VM and uploaded to cloud storage:
-
-https://storage.googleapis.com/logro-cloud-bucket-12345/data.txt
-
-*(Content includes timestamp generated on VM)*
-
----
-
-## 🧩 Architecture
-
-```
-API (TibiaData)
-↓
-VM (Compute Engine)
-↓
-Cron (pipeline.sh)
-↓
-GCS (raw data)
-↓
-Cron (aggregate.sh)
-↓
-GCS (aggregated results)
-```
-
----
-
-## 🧱 What I'm building
-
-- Cloud infrastructure (Compute Engine)
-- Storage layer (GCS)
-- IAM and access control
-- Data pipelines (compute → storage)
-- Real-world debugging skills
-
----
+API → Cloud Run Job → GCS → BigQuery → SQL → Visualization
 
 ## ⚙️ Tech Stack
 
-- Google Cloud Platform (GCP)
-- Compute Engine
-- Cloud Storage (GCS)
-- gcloud CLI / gsutil
-- Linux (Ubuntu)
+* Cloud Run (Jobs)
+* Cloud Storage (GCS)
+* BigQuery
+* Docker
+* gcloud CLI
+* Bash
 
----
+## 📊 What it does
 
-## 🐛 Debugging Experience
+* Fetches Tibia player count from public API
+* Stores raw data in GCS as timestamped files
+* Inserts structured data into BigQuery
+* Enables querying and visualization (e.g. peak hours, trends)
 
-Real issues encountered and solved:
-
-- IAM roles vs access scopes confusion
-- Token behavior and VM restart
-- Service account permissions
-- CLI inconsistency (`gcloud storage` vs `gsutil`)
-- Permission errors despite correct setup
-
----
-
-## 🧠 Key Learnings
-
-- Compute and storage are separate layers
-- IAM is not enough — scopes and tokens matter
-- Cloud systems require explicit access configuration
-- Debugging is a core cloud engineering skill
-
----
-
-## 🎯 Goal
-
-Build a complete cloud-based system including:
-
-- data ingestion  
-- processing  
-- storage  
-- API layer  
-
-Future milestone:
-➡️ gaming data analytics service (TibiaData API)
-
----
-
-## 📁 Structure
+## 📁 Project Structure
 
 ```
-notes/
-day-01.md
-day-02.md
-day-03.md
-day-04.md
-
-assets/
-day2.png
+aggregate/     # data aggregation jobs
+pipeline/      # main data pipeline (Docker + app.sh)
+infra/         # infra setup (future Terraform)
+scripts/       # helper scripts
+bq/            # BigQuery setup and queries
 ```
 
+## 🚀 How to run
+
+### Build & push image
+
+```
+docker build -t tibia-pipeline .
+docker tag tibia-pipeline europe-west2-docker.pkg.dev/<PROJECT_ID>/tibia-repo/tibia-pipeline:latest
+docker push europe-west2-docker.pkg.dev/<PROJECT_ID>/tibia-repo/tibia-pipeline:latest
+```
+
+### Run job
+
+```
+gcloud run jobs execute tibia-job --region=europe-west2
+```
+
+### Query data
+
+```
+bq query "SELECT * FROM tibia_dataset.players_final ORDER BY ts DESC LIMIT 10"
+```
+
+## 📈 Example insights
+
+* Peak player hours by day
+* Player count trends over time
+
+## 🧩 Next steps
+
+* CI/CD pipeline (GitHub Actions)
+* Infrastructure as Code (Terraform)
+* Monitoring & alerting
+
 ---
 
-
-## 🚀 What this project demonstrates
-
-- Building cloud-based data pipelines
-- Automating workflows with cron
-- Working with external APIs
-- Processing and aggregating data
-- Using GCP services (Compute Engine, Cloud Storage)
-- Implementing fault-tolerant scripts
-
-
----
-
-## 🚀 Next Steps
-
-- Infrastructure as Code (Terraform)
-- Containers (Cloud Run / Kubernetes)
-- Start real data project
-
-
+This repository documents my hands-on journey with Google Cloud, focusing on practical, real-world use cases rather than theory.
